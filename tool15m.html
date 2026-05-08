@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15-Minute Magic Toolkit | สพป.แพร่ เขต 2</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0f766e', // Teal 700
+                        primaryLight: '#ccfbf1', // Teal 50
+                        accent: '#f97316', // Orange 500
+                        accentLight: '#ffedd5', // Orange 50
+                        dark: '#1e293b', // Slate 800
+                        bglight: '#f8fafc', // Slate 50
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 250px;
+            max-height: 300px;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 300px; 
+            }
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .tab-btn { transition: all 0.2s; }
+        .tab-btn.active {
+            background-color: #0f766e;
+            color: white;
+            font-weight: 600;
+            border-color: #0f766e;
+            box-shadow: 0 4px 6px -1px rgba(15, 118, 110, 0.2);
+        }
+
+        .tab-ai-btn.active {
+            background: linear-gradient(to right, #0f766e, #f97316);
+            color: white !important;
+            font-weight: bold;
+            border: none;
+            box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+        }
+
+        .ai-gradient-text {
+            background: linear-gradient(to right, #0f766e, #ea580c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in-section {
+            animation: slideUp 0.4s ease forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center text-2xl font-bold shadow-md">
+                    15
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-dark leading-tight">15-Minute Magic Toolkit</h1>
+                    <p class="text-sm text-gray-500 font-medium">สพป.แพร่ เขต 2 | นวัตกรรมยกระดับผลสัมฤทธิ์</p>
+                </div>
+            </div>
+            <div class="bg-primaryLight text-primary px-4 py-2 rounded-lg border border-teal-200 text-sm font-semibold flex items-center gap-2">
+                🎯 อ่านออก เขียนคล่อง คิดวิเคราะห์ได้
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex flex-col gap-8">
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-primary mb-3 flex items-center gap-2">
+                    💡 ภาพรวมนวัตกรรม (Dashboard Overview)
+                </h2>
+                <p class="text-gray-600 leading-relaxed max-w-4xl">
+                    ส่วนนี้แสดงให้เห็นถึงโครงสร้างและเป้าหมายเชิงสถิติของนวัตกรรม <b>"15 นาที มหัศจรรย์"</b> ซึ่งเป็นชุดเครื่องมือที่ออกแบบมาเพื่อลดภาระครูผู้สอน ไม่ต้องเขียนแผนการสอนเพิ่ม เพียงนำกิจวัตร 15 นาทีไปแทรกในช่วงต้นหรือท้ายคาบเรียน กราฟด้านล่างแสดงการจัดสรรเวลาอย่างเป็นระบบ (5-5-5) และเป้าหมายความสำเร็จในการลดจำนวนนักเรียนกลุ่มวิกฤต (Red Zone) เมื่อปฏิบัติอย่างต่อเนื่อง
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-bglight rounded-xl p-5 border border-gray-200 flex flex-col">
+                    <h3 class="text-lg font-semibold text-center mb-1 text-dark">สัดส่วนการใช้เวลา (15 นาที)</h3>
+                    <p class="text-xs text-center text-gray-500 mb-4">เวลาที่ใช้ในแต่ละขั้นตอนเพื่อสร้าง Automated Skill</p>
+                    <div class="flex-grow flex items-center justify-center">
+                        <div class="chart-container">
+                            <canvas id="timeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-bglight rounded-xl p-5 border border-gray-200 flex flex-col">
+                    <h3 class="text-lg font-semibold text-center mb-1 text-dark">เป้าหมายลดกลุ่มวิกฤต (Red Zone)</h3>
+                    <p class="text-xs text-center text-gray-500 mb-4">การคาดการณ์พัฒนาการของนักเรียนใน 1 ภาคเรียน</p>
+                    <div class="flex-grow flex items-center justify-center">
+                        <div class="chart-container">
+                            <canvas id="impactChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="flex flex-col lg:flex-row gap-6 lg:gap-8">
+            
+            <aside class="w-full lg:w-1/4 flex flex-col gap-2">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sticky top-28">
+                    <h2 class="text-lg font-bold text-dark mb-4 border-b pb-2">📚 เมนูเครื่องมือ</h2>
+                    <p class="text-sm text-gray-500 mb-4">คลิกเพื่อดูกิจวัตรรายวัน หรือสร้างบทอ่าน/โจทย์ใหม่</p>
+                    
+                    <div class="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-2 lg:pb-0 hide-scrollbar" id="tab-container">
+                        <button id="tab-p1" onclick="updateView('p1')" class="tab-btn w-full text-left px-4 py-3 rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors whitespace-nowrap lg:whitespace-normal font-medium">
+                            👶 ป.1 (เป้าหมาย RT)
+                        </button>
+                        <button id="tab-p23" onclick="updateView('p23')" class="tab-btn w-full text-left px-4 py-3 rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors whitespace-nowrap lg:whitespace-normal font-medium">
+                            👦 ป.2 - ป.3 (เป้าหมาย NT)
+                        </button>
+                        <button id="tab-p45" onclick="updateView('p45')" class="tab-btn w-full text-left px-4 py-3 rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors whitespace-nowrap lg:whitespace-normal font-medium">
+                            👧 ป.4 - ป.5 (ปูพื้นฐาน)
+                        </button>
+                        <button id="tab-p6m3" onclick="updateView('p6m3')" class="tab-btn w-full text-left px-4 py-3 rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors whitespace-nowrap lg:whitespace-normal font-medium">
+                            🧑 ป.6 & ม.1-3 (O-NET)
+                        </button>
+                        
+                        <div class="h-px bg-gray-200 my-1 hidden lg:block"></div>
+                        <button id="tab-ai" onclick="showAIView()" class="tab-ai-btn tab-btn w-full text-left px-4 py-3 rounded-xl border border-teal-200 text-teal-800 bg-teal-50 hover:bg-teal-100 transition-colors whitespace-nowrap lg:whitespace-normal font-semibold flex items-center gap-2">
+                            <span>✨</span> สร้างสื่อ 15 นาทีด้วย AI
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="w-full lg:w-3/4">
+                
+                <!-- ================= GRADE VIEW CONTAINER ================= -->
+                <div id="grade-view-container" class="flex flex-col gap-6 fade-in-section">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 border-l-4 border-l-primary transition-all duration-300" id="content-header">
+                        <h2 class="text-2xl font-bold text-dark mb-2" id="level-title">ชั้นประถมศึกษาปีที่ 1</h2>
+                        <div class="inline-flex items-center gap-2 bg-accentLight text-accent px-3 py-1 rounded-full text-sm font-semibold mb-4 border border-orange-200">
+                            🎯 เป้าหมาย: <span id="level-target">RT อ่านออกเสียง & อ่านรู้เรื่อง</span>
+                        </div>
+                        <p class="text-gray-600 bg-bglight p-4 rounded-lg border border-gray-200">
+                            <span class="font-bold text-primary">ทักษะที่เน้น:</span> <span id="level-focus">ถอดรหัสเสียง (Decoding) และความเข้าใจความหมาย</span>
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="routine-blocks">
+                        <!-- Blocks injected via JS -->
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mt-2">
+                        <h3 class="text-xl font-bold text-dark mb-4 flex items-center gap-2">
+                            📖 ตัวอย่างสื่อ "15 นาที มหัศจรรย์"
+                        </h3>
+                        <p class="text-sm text-gray-500 mb-5">
+                            ตัวอย่างการนำทักษะด้านบนไปใช้กับบริบทจริงในห้องเรียน เพื่อให้นักเรียนคุ้นชินและเชื่อมโยงกับแนวข้อสอบ
+                        </p>
+                        
+                        <div class="bg-slate-800 rounded-xl p-6 text-white shadow-inner relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl">💬</div>
+                            <h4 class="text-lg font-semibold text-teal-300 mb-3" id="example-title">สำหรับ ป.1 (ฝึก Phonics)</h4>
+                            <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-600 mb-4">
+                                <p class="text-gray-200 leading-relaxed text-lg" id="example-text">
+                                    กา ขา มา นา <br>
+                                    ช้าง กิน อ้อย
+                                </p>
+                            </div>
+                            <div class="border-l-4 border-accent pl-4 py-1">
+                                <span class="text-xs text-orange-300 font-bold uppercase tracking-wider block mb-1">กิจกรรม 15 นาที</span>
+                                <p class="text-gray-300 text-sm" id="example-activity">
+                                    ให้เด็กแข่งขันชี้รูปภาพให้ตรงกับประโยคบนกระดาน และฝึกอ่านสะกดคำ
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= AI GENERATOR VIEW CONTAINER ================= -->
+                <div id="ai-view-container" class="hidden flex-col gap-6 fade-in-section">
+                    <div class="bg-gradient-to-br from-[#f8fafc] to-[#ffedd5] rounded-2xl shadow-md border border-teal-200 overflow-hidden relative h-full">
+                        <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 rounded-full bg-teal-200 opacity-30 blur-2xl"></div>
+                        <div class="absolute bottom-0 left-0 -ml-8 -mb-8 w-40 h-40 rounded-full bg-orange-200 opacity-20 blur-2xl"></div>
+                        
+                        <div class="bg-white p-6 md:p-8 border-b border-teal-100 flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+                            <div>
+                                <h2 class="text-2xl font-bold ai-gradient-text flex items-center gap-2">✨ สร้างสื่อ 15 นาทีด้วย AI (แยกตามวิชา)</h2>
+                                <p class="text-gray-600 mt-2 text-sm leading-relaxed">
+                                    ใช้ AI สร้างโจทย์ปัญหาหรือบทอ่านที่ <b>"ตรงกับโครงสร้างหลักสูตรแกนกลาง"</b> เช่น พิมพ์คำว่า "การคูณ" ในโหมดคณิตศาสตร์ ป.3 ระบบจะสร้างโจทย์พร้อมกิจกรรม Bar Model ให้ทันที
+                                </p>
+                            </div>
+                            <div class="text-5xl opacity-90 drop-shadow-md">🤖💡</div>
+                        </div>
+                        
+                        <div class="p-6 md:p-8 relative z-10 bg-white/50">
+                            <!-- Advanced Input Controls -->
+                            <div class="flex flex-col gap-4 mb-6 bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                                
+                                <div class="flex flex-col md:flex-row gap-4">
+                                    <div class="md:w-1/2">
+                                        <label class="block text-sm font-bold text-slate-700 mb-2">1. เลือกระดับชั้น</label>
+                                        <select id="ai-grade" onchange="updateSubjectOptions()" class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none bg-white text-sm font-medium text-primary">
+                                            <option value="p1">ป.1 (อ่านออกเสียง/สะกดคำ)</option>
+                                            <option value="p23">ป.2-3 (สอบ NT)</option>
+                                            <option value="p45">ป.4-5 (ปูพื้นฐาน)</option>
+                                            <option value="p6m3" selected>ป.6 - ม.3 (สอบ O-NET)</option>
+                                        </select>
+                                    </div>
+                                    <div class="md:w-1/2">
+                                        <label class="block text-sm font-bold text-slate-700 mb-2">2. เลือกรายวิชา</label>
+                                        <select id="ai-subject" class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none bg-white text-sm font-medium text-accent">
+                                            <!-- Injected by JS based on Grade -->
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">3. ระบุเนื้อหา / หัวข้อ / ตัวชี้วัด <span class="font-normal text-gray-500">(เช่น เศษส่วน, ภาวะโลกร้อน, แผนภูมิ)</span></label>
+                                    <div class="flex flex-col md:flex-row gap-3">
+                                        <input type="text" id="ai-topic" placeholder="พิมพ์หัวข้อที่ต้องการสอน..." class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-shadow text-sm">
+                                        <button onclick="generateAIPassage()" id="ai-generate-btn" class="w-full md:w-auto bg-primary hover:bg-teal-800 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-md flex items-center justify-center gap-2 whitespace-nowrap">
+                                            <span>✨ สร้างสื่อ 15 นาที</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Loader State -->
+                            <div id="ai-loader" class="hidden py-12 flex flex-col items-center justify-center text-primary bg-white rounded-xl border border-teal-100 shadow-sm">
+                                <div class="text-6xl animate-pulse-fast mb-4">🪄</div>
+                                <p class="font-bold text-xl animate-pulse ai-gradient-text">AI กำลังวิเคราะห์หลักสูตรแกนกลาง...</p>
+                                <p class="text-sm text-gray-500 mt-2">โปรดรอสักครู่ ระบบกำลังจัดรูปแบบกิจกรรมให้ตรงกับวิชาที่เลือก</p>
+                            </div>
+
+                            <!-- Result Output Area -->
+                            <div id="ai-result" class="hidden bg-white border border-teal-200 rounded-xl p-6 md:p-8 shadow-md">
+                                <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                                    <h4 class="font-bold text-xl text-slate-800 flex items-center gap-2">
+                                        <span class="text-2xl text-teal-600">📄</span> สื่อพร้อมใช้ (15-Min Magic)
+                                    </h4>
+                                    <button onclick="copyToClipboard()" class="text-sm font-bold text-primary hover:text-white hover:bg-primary flex items-center gap-2 bg-teal-50 px-4 py-2 rounded-lg transition-colors border border-teal-200">
+                                        📋 คัดลอกไปปริ้นท์
+                                    </button>
+                                </div>
+                                <div id="ai-result-content" class="text-gray-700 leading-relaxed space-y-4 text-base">
+                                    <!-- Output injected here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-dark text-slate-400 py-6 text-center text-sm border-t border-slate-700 mt-auto">
+        <p>ขับเคลื่อนด้วยข้อมูลและการวิเคราะห์หลักสูตร (Curriculum-Aligned AI) | สำนักงานเขตพื้นที่การศึกษาประถมศึกษาแพร่ เขต 2</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- 1. DATA STORAGE ---
+        const toolkitData = {
+            'p1': {
+                title: "ชั้นประถมศึกษาปีที่ 1",
+                target: "RT อ่านออกเสียง & อ่านรู้เรื่อง",
+                focus: "ถอดรหัสเสียง (Decoding) และความเข้าใจความหมาย (จากกฎ หยุด-ชี้-นำ-ชม)",
+                blocks: [
+                    { time: "นาทีที่ 1-5", title: "คลินิก Phonics (Warm-up)", desc: "ครูชูบัตรคำ/สระ 10-15 ใบ สลับไปมาอย่างรวดเร็ว ให้นักเรียนอ่านออกเสียงพร้อมกันแบบเร็วๆ เพื่อกระตุ้นสมอง", icon: "🗣️" },
+                    { time: "นาทีที่ 6-10", title: "จับคู่ดูภาพ (อ่านรู้เรื่อง)", desc: "ครูติดประโยคสั้นๆ 3 ประโยคบนกระดาน ชูรูปภาพ แล้วให้เด็กวิ่งแข่งกันไปแปะรูปภาพให้ตรงกับประโยค", icon: "🖼️" },
+                    { time: "นาทีที่ 11-15", title: "คลินิกแก้คำผิด (Error Correction)", desc: "สุ่มเด็กอ่านทีละคน (โฟกัสกลุ่มสีแดง) ใช้กฎ <b>หยุด-ชี้-นำ-ชม</b> ภายใน 10 วินาทีเมื่อเด็กอ่านผิด ห้ามปล่อยผ่าน", icon: "✨" }
+                ],
+                exampleTitle: "ตัวอย่างฝึก Phonics และความเข้าใจ",
+                exampleText: "ตา สี มี นา <br> ช้าง ชอบ กิน อ้อย",
+                exampleActivity: "ให้เด็กแข่งขันชี้รูปภาพให้ตรงกับประโยคบนกระดาน และฝึกอ่านสะกดคำทีละคน"
+            },
+            'p23': {
+                title: "ชั้นประถมศึกษาปีที่ 2 และ 3",
+                target: "NT ภาษาไทย & คณิตศาสตร์",
+                focus: "จับใจความด้วยสี (5W1H) และเห็นภาพก่อนคำนวณเลข (Bar Model)",
+                blocks: [
+                    { time: "นาทีที่ 1-5", title: "คณิตคิดเร็ว (Mental Math)", desc: "ครูตั้งโจทย์บวก-ลบ บนกระดาน 5 ข้อ ให้เด็กตอบปากเปล่าทันที เพื่อลดภาระสมอง (Cognitive Load) ก่อนเจอโจทย์ปัญหา", icon: "🧮" },
+                    { time: "นาทีที่ 6-10", title: "นักสืบ 5 สี (ภาษาไทย 5W1H)", desc: "แจกข้อความ 1 ย่อหน้า ให้นักเรียนใช้ไฮไลท์ขีดเส้นใต้: <b>สีเหลือง</b>=ใคร, <b>เขียว</b>=ทำอะไร, <b>ฟ้า</b>=ที่ไหน, <b>ส้ม</b>=เมื่อไหร่", icon: "🖍️" },
+                    { time: "นาทีที่ 11-15", title: "วาดให้เห็นภาพ (Bar Model)", desc: "ครูให้โจทย์ปัญหาคณิต 1 ข้อ <b>กฎเหล็ก:</b> ห้ามเขียนตัวเลข ให้เด็กวาดรูปแท่งสี่เหลี่ยมเพื่ออธิบายโจทย์ให้เสร็จใน 5 นาที", icon: "📊" }
+                ],
+                exampleTitle: "สำหรับ ป.2 - ป.3 (ฝึก Bar Model คณิตศาสตร์)",
+                exampleText: "<b>โจทย์:</b> แม่มีเงิน 50 บาท ซื้อขนมไป 20 บาท แม่เหลือเงินกี่บาท?",
+                exampleActivity: "ให้เด็กตอบคำถามคิดเลขเร็วก่อน 5 ข้อ จากนั้นให้วาด Bar Model กล่องสี่เหลี่ยมแบ่งเป็น 2 ส่วน (ส่วนที่ซื้อขนม และส่วนที่เหลือ) โดยไม่ต้องรีบเขียนประโยคสัญลักษณ์"
+            },
+            'p45': {
+                title: "ชั้นประถมศึกษาปีที่ 4 และ 5",
+                target: "อ่านคล่อง เขียนคล่อง ปูพื้นฐาน",
+                focus: "ความเร็วในการอ่าน (Speed & Fluency) และการสรุปใจความสำคัญ",
+                blocks: [
+                    { time: "นาทีที่ 1-5", title: "จับเวลาอ่าน (Speed & Fluency)", desc: "ครูแจกบทอ่าน 1 ย่อหน้า ให้เวลา 2 นาทีในการอ่านในใจ จากนั้นสุ่มนักเรียน 1-2 คน อ่านออกเสียงให้เพื่อนฟัง", icon: "⏱️" },
+                    { time: "นาทีที่ 6-10", title: "วิเคราะห์คำศัพท์ (Application)", desc: "ให้เด็กช่วยกันหาคำศัพท์ยาก 3 คำ อภิปรายความหมายร่วมกัน และให้นักเรียนเลือก 1 คำ มา 'แต่งประโยคใหม่' ให้สมบูรณ์", icon: "📝" },
+                    { time: "นาทีที่ 11-15", title: "สรุปความ 3 บรรทัด (Summarizing)", desc: "ให้นักเรียนเขียนสรุปเรื่องที่อ่านลงสมุด โดยใช้กฎบังคับว่า <b>'เขียนอย่างไรก็ได้ แต่ห้ามเกิน 3 บรรทัด'</b>", icon: "✂️" }
+                ],
+                exampleTitle: "สำหรับ ป.4 - ป.5 (สรุปความภาษาไทย)",
+                exampleText: "การนอนหลับมีความสำคัญต่อร่างกาย สมองจะทำการจัดระเบียบข้อมูล ร่างกายหลั่งสารโกรทฮอร์โมนช่วยซ่อมแซมส่วนที่สึกหรอ เด็กจึงควรนอน 8-10 ชั่วโมง เพื่อให้สมองปลอดโปร่ง",
+                exampleActivity: "ให้เด็กแต่งประโยคจากคำว่า 'เจริญเติบโต' และเขียนสรุปใจความสำคัญของข้อความนี้ห้ามเกิน 3 บรรทัด"
+            },
+            'p6m3': {
+                title: "ชั้น ป.6 และ ม.1 - ม.3",
+                target: "O-NET ทุกรายวิชา (ไทย, คณิต, วิทย์, อังกฤษ)",
+                focus: "การคิดเชิงวิพากษ์, รู้ทันข้อสอบ, สกัดคำสำคัญ (Active Reading)",
+                blocks: [
+                    { time: "นาทีที่ 1-5", title: "สกัดคำสำคัญ (Active Reading)", desc: "ยกโจทย์ O-NET ขึ้นจอ ให้เด็ก <b>'วงกลม'</b> ตัวเลข/เงื่อนไข และ <b>'ขีดเส้นใต้'</b> สิ่งที่โจทย์ถาม (ห้ามอ่านผ่านๆ ตาลอย)", icon: "🔍" },
+                    { time: "นาทีที่ 6-10", title: "จับผิดตัวลวง (Distractor Analysis)", desc: "<b>กฎเหล็ก:</b> ห้ามเฉลยข้อถูก แต่ให้ช่วยกันหาว่า 'ข้อไหนผิดแน่ๆ' ให้นักเรียนอธิบายเหตุผลว่าทำไมตัวเลือกนี้ถึงเป็น 'กับดัก'", icon: "🪤" },
+                    { time: "นาทีที่ 11-15", title: "ตั๋วออกห้อง (Exit Ticket)", desc: "ก่อนหมดคาบ ให้เขียนใส่กระดาษ 1 ประโยค: 'วันนี้ฉันเข้าใจแล้วว่า...' หรือ 'ข้อผิดพลาดที่ฉันจะระวังคือ...' ส่งครูก่อนออกห้อง", icon: "🎫" }
+                ],
+                exampleTitle: "สำหรับ ป.6 และ ม.3 (ฝึกจับผิดตัวลวง วิทยาศาสตร์)",
+                exampleText: "<b>โจทย์จำลอง (ตามตัวชี้วัด ว 1.2):</b> ถ้านำพืชไปไว้ในห้องมืดเป็นเวลา 3 วัน จะเกิดผลตามข้อใดชัดเจนที่สุด?<br>ก. พืชเจริญเติบโตเร็วขึ้น<br>ข. ใบพืชมีสีเหลืองซีด<br>ค. พืชดูดน้ำมากขึ้น<br>ง. พืชสร้างอาหารได้มากขึ้น",
+                exampleActivity: "ให้วงกลมคำว่า 'ห้องมืด' และ '3 วัน' จากนั้นชวนเด็กหาตัวลวง เช่น ข้อ ง. เป็นตัวลวงที่ชัดเจน เพราะห้องมืดไม่มีแสง พืชสังเคราะห์แสงไม่ได้"
+            }
+        };
+
+        // --- 2. UI INTERACTIONS ---
+        
+        function updateView(tabId) {
+            document.getElementById('grade-view-container').style.display = 'flex';
+            document.getElementById('ai-view-container').style.display = 'none';
+
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById('tab-' + tabId);
+            if(activeBtn) activeBtn.classList.add('active');
+
+            const data = toolkitData[tabId];
+            document.getElementById('level-title').innerText = data.title;
+            document.getElementById('level-target').innerText = data.target;
+            document.getElementById('level-focus').innerText = data.focus;
+
+            const blocksContainer = document.getElementById('routine-blocks');
+            blocksContainer.innerHTML = '';
+            data.blocks.forEach((block, index) => {
+                const delay = index * 100;
+                blocksContainer.innerHTML += `
+                    <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow transform hover:-translate-y-1 duration-200" style="animation: slideUp 0.4s ease forwards; animation-delay: ${delay}ms; opacity: 0;">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold bg-orange-100 text-orange-700 px-2 py-1 rounded tracking-wide">${block.time}</span>
+                            <span class="text-2xl">${block.icon}</span>
+                        </div>
+                        <h4 class="font-bold text-dark mb-2">${block.title}</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">${block.desc}</p>
+                    </div>
+                `;
+            });
+
+            document.getElementById('example-title').innerText = data.exampleTitle;
+            document.getElementById('example-text').innerHTML = data.exampleText;
+            document.getElementById('example-activity').innerText = data.exampleActivity;
+        }
+
+        function showAIView() {
+            document.getElementById('grade-view-container').style.display = 'none';
+            document.getElementById('ai-view-container').style.display = 'flex';
+
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('tab-ai').classList.add('active');
+            
+            // Initialize subjects based on default selection
+            updateSubjectOptions();
+        }
+
+        function updateSubjectOptions() {
+            const grade = document.getElementById('ai-grade').value;
+            const subjectSelect = document.getElementById('ai-subject');
+            subjectSelect.innerHTML = '';
+
+            if (grade === 'p1') {
+                subjectSelect.innerHTML = `<option value="thai">ภาษาไทย (การอ่านออกเสียง/สะกดคำ)</option>`;
+                subjectSelect.disabled = true;
+            } else if (grade === 'p23') {
+                subjectSelect.innerHTML = `
+                    <option value="thai">ภาษาไทย (เน้นอ่านรู้เรื่อง 5W1H)</option>
+                    <option value="math">คณิตศาสตร์ (เน้นตีโจทย์วาด Bar Model)</option>
+                `;
+                subjectSelect.disabled = false;
+            } else if (grade === 'p45') {
+                subjectSelect.innerHTML = `<option value="thai">ภาษาไทย (เน้นอ่านจับใจความ/สรุปความ)</option>`;
+                subjectSelect.disabled = true;
+            } else if (grade === 'p6m3') {
+                subjectSelect.innerHTML = `
+                    <option value="thai">ภาษาไทย (O-NET)</option>
+                    <option value="math">คณิตศาสตร์ (O-NET)</option>
+                    <option value="sci">วิทยาศาสตร์ (O-NET)</option>
+                    <option value="eng">ภาษาอังกฤษ (O-NET)</option>
+                `;
+                subjectSelect.disabled = false;
+            }
+        }
+
+        // --- 3. ADVANCED GEMINI API INTEGRATION (CURRICULUM ALIGNED) ---
+        
+        async function fetchWithRetry(url, options, maxRetries = 2) {
+            const delays = [1000, 2000];
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error("API Fails");
+                    return await response.json();
+                } catch (e) {
+                    if (i === maxRetries - 1) throw e;
+                    await new Promise(resolve => setTimeout(resolve, delays[i]));
+                }
+            }
+        }
+
+        async function generateAIPassage() {
+            const topicInput = document.getElementById('ai-topic').value;
+            const topic = topicInput.trim() !== '' ? topicInput : 'เนื้อหาทั่วไปตามตัวชี้วัด';
+            const gradeId = document.getElementById('ai-grade').value;
+            const subjectId = document.getElementById('ai-subject').value;
+            
+            const loader = document.getElementById('ai-loader');
+            const resultDiv = document.getElementById('ai-result');
+            const resultContent = document.getElementById('ai-result-content');
+            const btn = document.getElementById('ai-generate-btn');
+
+            loader.classList.remove('hidden');
+            resultDiv.classList.add('hidden');
+            btn.disabled = true;
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            // --- ADVANCED PROMPT ENGINEERING INCORPORATING THAI CORE CURRICULUM ---
+            let promptSpecifics = "";
+            let subjectName = "";
+            let curriculumContext = "";
+
+            if (gradeId === 'p1') {
+                subjectName = "ภาษาไทย";
+                promptSpecifics = "เขียนบทอ่านง่ายๆ สั้นๆ สระพื้นฐาน ความยาวไม่เกิน 3-4 บรรทัด และแต่งกิจกรรม 15 นาที ให้เด็กร่วมกันอ่านออกเสียง หรือครูชี้ภาพให้เด็กแข่งขันกันสะกดคำ";
+            } 
+            else if (gradeId === 'p23') {
+                if (subjectId === 'thai') {
+                    subjectName = "ภาษาไทย";
+                    promptSpecifics = "เขียนเนื้อเรื่องสั้นๆ 1 ย่อหน้า และตั้งคำถาม 5W1H (ใคร ทำอะไร ที่ไหน เมื่อไหร่ อย่างไร) จำนวน 3 ข้อ เพื่อให้นักเรียนฝึกขีดเส้นใต้หาคำตอบด้วยสีต่างๆ";
+                } else if (subjectId === 'math') {
+                    subjectName = "คณิตศาสตร์";
+                    promptSpecifics = "สร้างโจทย์ปัญหาคณิตศาสตร์ 1 ข้อ และกำหนด 'กิจกรรม 15 นาที' ดังนี้: 1) ให้โจทย์คิดเลขเร็วปากเปล่า 5 ข้อเพื่อวอร์มอัป 2) ให้นักเรียนฝึกวาดรูป Bar Model (แท่งสี่เหลี่ยม) จากโจทย์ปัญหาหลัก โดยเน้นว่า 'ยังไม่ต้องคำนวณหาคำตอบ' แค่วาดภาพให้ถูกต้อง";
+                }
+            } 
+            else if (gradeId === 'p45') {
+                subjectName = "ภาษาไทย";
+                promptSpecifics = "เขียนบทอ่านให้ความรู้หรือข้อคิด 1 ย่อหน้า และกำหนด 'กิจกรรม 15 นาที' ให้เด็กฝึกจับเวลาอ่าน หาคำศัพท์ยาก 1 คำ และฝึกสรุปใจความสำคัญของเรื่องนี้โดยบังคับว่า 'ห้ามเขียนเกิน 3 บรรทัด'";
+            } 
+            else if (gradeId === 'p6m3') {
+                // ผสานสาระแกนกลางการเรียนรู้ฉบับปรับปรุง 2560
+                if (subjectId === 'thai') {
+                    subjectName = "ภาษาไทย";
+                    curriculumContext = "อ้างอิงสาระการเรียนรู้แกนกลาง: การอ่านจับใจความ การแยกข้อเท็จจริงและข้อคิดเห็น การวิเคราะห์ความน่าเชื่อถือ หรือหลักการใช้ภาษา";
+                } else if (subjectId === 'math') {
+                    subjectName = "คณิตศาสตร์";
+                    curriculumContext = "อ้างอิงสาระการเรียนรู้แกนกลาง (ฉบับปรับปรุง 2560): จำนวนและพีชคณิต การวัดและเรขาคณิต หรือสถิติและความน่าจะเป็น โดยเน้นโจทย์ปัญหาหรือการใช้เหตุผลเชิงตรรกะ";
+                } else if (subjectId === 'sci') {
+                    subjectName = "วิทยาศาสตร์";
+                    curriculumContext = "อ้างอิงสาระการเรียนรู้แกนกลาง (ฉบับปรับปรุง 2560): วิทยาศาสตร์ชีวภาพ กายภาพ โลกและอวกาศ โดยเน้นทักษะกระบวนการทางวิทยาศาสตร์ การวิเคราะห์ผลการทดลอง ตัวแปร หรือความเป็นเหตุเป็นผล";
+                } else if (subjectId === 'eng') {
+                    subjectName = "ภาษาอังกฤษ";
+                    curriculumContext = "อ้างอิงสาระการเรียนรู้แกนกลาง: การอ่านจับใจความ (Reading Comprehension) ป้ายประกาศ (Signs) บทสนทนาสั้นๆ หรือไวยากรณ์ในบริบท (Grammar in context)";
+                }
+                
+                promptSpecifics = `สร้างโจทย์ข้อสอบรูปแบบ O-NET ชั้น ป.6 หรือ ม.3 วิชา${subjectName} จำนวน 1 ข้อ (${curriculumContext}) พร้อมตัวเลือก 4 ข้อ (ก, ข, ค, ง หรือ A, B, C, D) และกำหนด 'กิจกรรม 15 นาที (Active Reading & Distractor Analysis)' ดังนี้: 1) แนะนำว่านักเรียนควร 'วงกลม' หรือ 'ขีดเส้นใต้' คำสำคัญ (Keywords) คำไหนในโจทย์ 2) เฉลยข้อที่ถูกต้อง และ 3) วิเคราะห์ 'ข้อที่ผิด (ตัวลวง)' ว่าหลอกนักเรียนด้วยความเข้าใจผิดอย่างไรบ้าง (ต้องอธิบายกับดักในตัวเลือกผิดให้ชัดเจน)`;
+            }
+
+            const systemPrompt = `คุณคือครูผู้เชี่ยวชาญการสอนและวิเคราะห์หลักสูตรแกนกลาง หน้าที่ของคุณคือสร้างสื่อ "15 นาที มหัศจรรย์" ที่ตรงตามตัวชี้วัด เพื่อยกระดับผลสัมฤทธิ์นักเรียน`;
+            const userPrompt = `โปรดสร้างสื่อ 15 นาที วิชา **${subjectName}** เรื่อง/หัวข้อ: **"${topic}"** \n\nข้อกำหนดโครงสร้างอย่างเคร่งครัด:\n${promptSpecifics}\n\nจัดรูปแบบผลลัพธ์ให้อ่านง่าย ใช้ Markdown (เช่น **ตัวหนา**) ไม่ต้องเกริ่นนำ ให้แสดงเนื้อหาและกิจกรรมได้เลย`;
+
+            const combinedPrompt = `${systemPrompt}\n\nคำสั่ง:\n${userPrompt}`;
+
+            try {
+                // Environment Detection & API Call
+                const isLocal = (window.self === window.top);
+                const activeKey = isLocal ? "AIzaSyB7CWUaS2cs35EHX9YvvyTIaDWXOUklEJc" : ""; 
+                const modelsToTry = isLocal ? ["gemini-1.5-flash"] : ["gemini-2.5-flash-preview-09-2025"];
+                const payload = { contents: [{ parts: [{ text: combinedPrompt }] }] };
+
+                let data = null;
+                for (const model of modelsToTry) {
+                    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${activeKey}`;
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (!response.ok) throw new Error("API Fails");
+                        data = await response.json();
+                        break; 
+                    } catch (error) {}
+                }
+
+                if (!data) throw new Error("Network/API Error");
+
+                let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if (text) {
+                    text = text.replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold text-teal-800 mt-5 mb-2">$1</h3>')
+                               .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-dark mt-6 mb-3 border-b pb-2">$1</h2>')
+                               .replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-800 bg-orange-50 px-1 rounded">$1</strong>')
+                               .replace(/\*(.*?)\*/g, '<em class="text-teal-700">$1</em>')
+                               .replace(/\n\n/g, '</p><p class="mb-4 text-gray-700 leading-relaxed text-lg">')
+                               .replace(/\n/g, '<br>');
+                    
+                    resultContent.innerHTML = `<p class="mb-4 text-gray-700 leading-relaxed text-lg">${text}</p>`;
+                } else {
+                    throw new Error("No Content");
+                }
+                
+            } catch (error) {
+                // === โหมดจำลองฉุกเฉิน (Demo Mode) ที่อัปเกรดแยกตามวิชา ===
+                const mockKey = gradeId + '_' + subjectId;
+                
+                const mockResponses = {
+                    'p1_thai': `### 📖 บทอ่าน: ${topic}\n\nปู มี งู\n\nปู ดู งู\n\nตา สี ตี งู\n\n**📌 กิจกรรม 15 นาที (ฝึก Phonics)**\n1. ให้เด็กอ่านออกเสียงทีละบรรทัดพร้อมกัน 2 รอบ\n2. ครูสุ่มนักเรียนออกมาชี้คำว่า "ดู" และ "ตี"\n3. แข่งขันกันสะกดคำว่า "สี" (สอ-อี-สี) และ "งู" (งอ-อู-งู)`,
+                    'p23_thai': `### 📖 บทอ่าน: ${topic}\n\nเย็นวันศุกร์ โต้งและเต้ชวนกันไปเตะฟุตบอลที่ลานกว้างหน้าหมู่บ้าน พวกเขาเล่นกันอย่างสนุกสนานจนถึงเวลาหกโมงเย็น จู่ๆ ฝนก็ตกลงมา โต้งจึงชวนเต้รีบวิ่งกลับบ้านเพื่อไม่ให้เป็นหวัด\n\n**📌 กิจกรรม 15 นาที (นักสืบ 5W1H)**\nให้นักเรียนใช้สีไม้ขีดเส้นใต้หาคำตอบ:\n- **ใคร** (สีเหลือง) -> โต้ง, เต้\n- **ทำอะไร** (สีเขียว) -> ไปเตะฟุตบอล\n- **ที่ไหน** (สีฟ้า) -> ลานกว้างหน้าหมู่บ้าน`,
+                    'p23_math': `### 🧮 โจทย์ปัญหาคณิตศาสตร์: ${topic}\n\n**โจทย์หลัก:** พ่อค้ามีแตงโม 45 ผล ขายไปได้ 20 ผล พ่อค้าจะเหลือแตงโมกี่ผล?\n\n**📌 กิจกรรม 15 นาที (ฝึกคิดเลขเร็ว & Bar Model)**\n**ส่วนที่ 1: วอร์มอัปคิดเลขเร็ว (ปากเปล่า)**\n1) 10 - 5 = ?\n2) 20 - 10 = ?\n3) 15 - 5 = ?\n4) 30 - 20 = ?\n5) 50 - 10 = ?\n\n**ส่วนที่ 2: วาดภาพ (ยังไม่ต้องคำนวณ)**\nให้นักเรียนวาดกล่องสี่เหลี่ยมยาว 1 กล่อง แทน "แตงโม 45 ผล" จากนั้นขีดเส้นแบ่งกล่องออกเป็น 2 ส่วน เขียนกำกับว่า "ส่วนที่ขายไป 20" และ "ส่วนที่เหลือ ?"`,
+                    'p45_thai': `### 📖 บทความ: ${topic}\n\nปะการังเป็นสัตว์ทะเลที่มีความสำคัญมาก เพราะเป็นแหล่งอนุบาลสัตว์น้ำวัยอ่อน แต่ปัจจุบันอุณหภูมิของน้ำทะเลที่สูงขึ้นทำให้เกิดปรากฏการณ์ปะการังฟอกขาว ซึ่งส่งผลกระทบต่อระบบนิเวศในท้องทะเลอย่างรุนแรง\n\n**📌 กิจกรรม 15 นาที (สรุปความ 3 บรรทัด)**\n1. คำศัพท์ยาก: ปรากฏการณ์ปะการังฟอกขาว (ให้ครูอธิบายความหมาย)\n2. ให้นักเรียนเขียนสรุปเรื่องนี้ **ห้ามเกิน 3 บรรทัด**\n*แนวคำตอบ: ปะการังมีความสำคัญต่อสัตว์น้ำ แต่อุณหภูมิน้ำทะเลที่สูงขึ้นทำให้ปะการังฟอกขาว ซึ่งส่งผลเสียต่อระบบนิเวศ*`,
+                    'p6m3_thai': `### 📖 โจทย์ O-NET (ภาษาไทย): ${topic}\n\n**โจทย์:** ข้อความใดต่อไปนี้เป็น "ข้อเท็จจริง"\nก. ทะเลที่สวยที่สุดคือทะเลอันดามัน\nข. การตื่นเช้าทำให้สมองแจ่มใสที่สุด\nค. ประเทศไทยมี 3 ฤดู คือ ฤดูร้อน ฤดูฝน และฤดูหนาว\nง. อาหารไทยอร่อยกว่าอาหารตะวันตก\n\n**📌 กิจกรรม 15 นาที (Active Reading & จับผิดตัวลวง)**\n- **ชี้จุดสังเกต (Active Reading):** ให้วงกลมคำว่า "ข้อเท็จจริง" (หมายถึงสิ่งที่พิสูจน์ได้ว่าเป็นความจริง)\n- **เฉลย:** ข้อ ค. เพราะพิสูจน์ได้ตามหลักภูมิศาสตร์\n- **วิเคราะห์ตัวลวง:** ข้อ ก, ข, ง เป็นตัวลวง เพราะมีคำว่า "ที่สุด" หรือ "อร่อยกว่า" ซึ่งเป็นเพียง "ข้อคิดเห็น" หรือความรู้สึกส่วนตัวของแต่ละคน`,
+                    'p6m3_math': `### 🧮 โจทย์ O-NET (คณิตศาสตร์): ${topic}\n\n**โจทย์:** เสื้อราคา 400 บาท ป้ายติดลดราคา 25% ต้องจ่ายเงินซื้อเสื้อตัวนี้กี่บาท?\nก. 100 บาท\nข. 300 บาท\nค. 375 บาท\nง. 500 บาท\n\n**📌 กิจกรรม 15 นาที (Active Reading & จับผิดตัวลวง)**\n- **ชี้จุดสังเกต:** ให้ขีดเส้นใต้คำว่า "ลดราคา 25%" และวงกลมคำว่า "ต้องจ่ายเงินกี่บาท"\n- **เฉลย:** ข้อ ข. (ลด 100 บาท ต้องจ่าย 400-100 = 300 บาท)\n- **วิเคราะห์ตัวลวง:** \n   - ข้อ ก. หลอกคนที่คิดส่วนลด (100 บาท) แล้วรีบกาตอบเลย โดยลืมเอาไปลบออกจากราคาเต็ม\n   - ข้อ ค. หลอกคนที่เอา 400 ไปลบ 25 ดื้อๆ โดยไม่คิดเปอร์เซ็นต์`,
+                    'p6m3_sci': `### 🔬 โจทย์ O-NET (วิทยาศาสตร์): ${topic}\n\n**โจทย์:** ถ้านำพืชไปไว้ในห้องที่ปิดทึบไม่มีแสงสว่างเลยเป็นเวลา 5 วัน จะเกิดผลตามข้อใด?\nก. พืชเจริญเติบโตได้เร็วกว่าปกติ\nข. ใบของพืชจะมีสีเหลืองซีด\nค. พืชดูดซึมแร่ธาตุได้มากขึ้น\nง. พืชสร้างอาหารได้มากขึ้น\n\n**📌 กิจกรรม 15 นาที (Active Reading & จับผิดตัวลวง)**\n- **ชี้จุดสังเกต:** ให้วงกลมคำว่า "ปิดทึบไม่มีแสงสว่าง"\n- **เฉลย:** ข้อ ข. (ใบเปลี่ยนสีเพราะขาดแสงในการสร้างคลอโรฟิลล์)\n- **วิเคราะห์ตัวลวง:** ข้อ ก, ค, ง เป็นการหลอกโดยใช้ผลลัพธ์เชิงบวกทั้งหมด ซึ่งขัดแย้งกับหลักการสังเคราะห์ด้วยแสง (พืชต้องการแสงในการสร้างอาหาร ถ่าไม่มีแสงพืชจะอ่อนแอลง ไม่ใช่โตขึ้น)`,
+                    'p6m3_eng': `### 🇬🇧 โจทย์ O-NET (ภาษาอังกฤษ): ${topic}\n\n**Read the following sign.**\n[ No littering. Fine 2,000 Baht ]\n\n**Question:** What does this sign mean?\nA. You can buy a bin for 2,000 Baht.\nB. You must pay 2,000 Baht if you drop rubbish.\nC. You should not run in this area.\nD. You can throw rubbish here.\n\n**📌 กิจกรรม 15 นาที (Active Reading & จับผิดตัวลวง)**\n- **ชี้จุดสังเกต:** ให้ขีดเส้นใต้คำว่า "No littering" (ห้ามทิ้งขยะ) และ "Fine" (ค่าปรับ)\n- **เฉลย:** ข้อ B (ถ้าทิ้งขยะต้องเสียค่าปรับ 2,000 บาท)\n- **วิเคราะห์ตัวลวง:**\n   - ข้อ A. หลอกคำว่า Fine (ปรับ) ว่าแปลว่า ดี หรือ ซื้อขาย\n   - ข้อ C. ไม่ตรงกับบริบทป้าย\n   - ข้อ D. หลอกให้ทำตรงข้ามกับป้าย (No)`
+                };
+
+                // Fallback logic
+                let fallbackText = mockResponses[mockKey] || mockResponses['p23_math']; // Default safe fallback
+                
+                let formattedFallback = fallbackText
+                    .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold text-teal-800 mt-5 mb-2">$1</h3>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-800 bg-orange-50 px-1 rounded">$1</strong>')
+                    .replace(/\*(.*?)\*/g, '<em class="text-teal-700">$1</em>')
+                    .replace(/\n\n/g, '</p><p class="mb-4 text-gray-700 leading-relaxed text-lg">')
+                    .replace(/\n/g, '<br>');
+
+                resultContent.innerHTML = `
+                    <div class="bg-orange-50 border border-orange-200 p-4 mb-6 rounded-lg">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-accent text-xl">✨</span>
+                            <h4 class="font-bold text-orange-800">โหมดแสดงตัวอย่างจำลอง (Demo Mode)</h4>
+                        </div>
+                        <p class="text-sm text-orange-700">เนื่องจากระบบ AI หลักกำลังอยู่ในระหว่างตรวจสอบการเชื่อมต่อ ระบบจึงทำการสร้าง <b>"ตัวอย่างสื่อแบบจำลอง"</b> ที่ตรงกับโครงสร้างวิชาที่คุณครูเลือกมาให้ใช้งานแทนครับ</p>
+                    </div>
+                    <p class="mb-4 text-gray-700 leading-relaxed text-lg">${formattedFallback}</p>
+                `;
+                
+            } finally {
+                resultDiv.classList.remove('hidden');
+                loader.classList.add('hidden');
+                btn.disabled = false;
+                btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
+        }
+
+        function copyToClipboard() {
+            const content = document.getElementById('ai-result-content').innerText;
+            const textArea = document.createElement("textarea");
+            textArea.value = content;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                const btn = document.querySelector('button[onclick="copyToClipboard()"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ คัดลอกสำเร็จ';
+                setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+            } catch (err) {}
+            document.body.removeChild(textArea);
+        }
+
+        // --- 4. INITIALIZATION & CHARTS ---
+        document.addEventListener('DOMContentLoaded', () => {
+            updateView('p1');
+
+            const ctxTime = document.getElementById('timeChart').getContext('2d');
+            new Chart(ctxTime, {
+                type: 'doughnut',
+                data: {
+                    labels: ['วอร์มอัป (Warm-up)', 'กิจกรรมหลัก (Core)', 'ประยุกต์/สรุปผล (Apply)'],
+                    datasets: [{
+                        data: [5, 5, 5],
+                        backgroundColor: ['#f97316', '#0f766e', '#38bdf8'],
+                        borderWidth: 2, borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, cutout: '65%',
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: "'Prompt', sans-serif", size: 11 }, boxWidth: 12 } },
+                        tooltip: { callbacks: { label: context => ' ' + context.label + ': ' + context.raw + ' นาที' }, titleFont: { family: "'Prompt', sans-serif" }, bodyFont: { family: "'Prompt', sans-serif" } }
+                    }
+                }
+            });
+
+            const ctxImpact = document.getElementById('impactChart').getContext('2d');
+            new Chart(ctxImpact, {
+                type: 'bar',
+                data: {
+                    labels: ['พ.ค. (ก่อนเริ่ม)', 'ก.ค. (กลางเทอม)', 'ต.ค. (ปลายเทอม)'],
+                    datasets: [{
+                        label: '% นักเรียนกลุ่ม Red Zone',
+                        data: [35, 15, 5],
+                        backgroundColor: '#ef4444', borderRadius: 6, barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 40, ticks: { font: { family: "'Prompt', sans-serif", size: 10 }, callback: value => value + '%' }, grid: { borderDash: [4, 4], color: '#e2e8f0' } },
+                        x: { ticks: { font: { family: "'Prompt', sans-serif", size: 11 } }, grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: context => ' กลุ่มวิกฤตเหลือ: ' + context.raw + '%' }, titleFont: { family: "'Prompt', sans-serif" }, bodyFont: { family: "'Prompt', sans-serif" } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
